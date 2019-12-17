@@ -1,24 +1,41 @@
 #pragma once
 #include <string>
 
+using FString = std::string;
+using int32 = int;
 
+struct FBullCowCount
+{
+	int32 Bulls = 0;
+	int32 Cows = 0;
+};
+
+enum class EWordStatus
+{
+	OK,
+	Not_Isogram,
+	Wrong_Lenght,
+	Not_Lowercase
+};
 class FBullCowGame {
 public:
 	
 	FBullCowGame(); // constructor
-	int GetMaxTries() const;
-	int GetCurrentTry() const;
+	int32 GetMaxTries() const;
+	int32 GetCurrentTry() const;
+	int32 GetHiddenWordLenght() const;
+
 	bool IsGameWon() const;
+	EWordStatus CheckGuessValidity(FString) const;
 
 	void Reset(); // TODO make more rich return value.
-	bool CheckGuessValidity(std::string); // TODO make more rich return value.
-	// provide a method for counting bulls and cows and increasing turn #
+	FBullCowCount SubmitGuess(FString);
 
 	// Please try and ignore this and focus on the interface above 
 private:
 
 	// see constructor for initialization
-	int MyCurrentTry;
-	int MyMaxTries;
-	bool IsIsogram(std::string);
+	int32 MyCurrentTry;
+	int32 MyMaxTries;
+	FString MyHiddenWord;	
 };
